@@ -139,7 +139,7 @@ void instaRemove(){
     }*/
 }
 
-void readEntities(Entity **spawn){
+void readEntities(Entity **spawn, int spn){
     Entity *aux, *entity = NULL;
     if(*spawn){
         aux = *spawn;
@@ -148,19 +148,43 @@ void readEntities(Entity **spawn){
         if(aux->moveSpeed != 0){
             if(aux->x + collisionBox[0] >= Hero.x && aux->x <= (Hero.x + 20) &&
                aux->y + collisionBox[1] >= Hero.y && aux->y <= (Hero.y + 20)){
-                instaRemove();
+                //instaRemove();
+                switch(spn){
+                    case 0:
+                            removeSpawn(&filaE, 0);
+                        break;
+                    case 1:
+                            removeSpawn(&filaM, 1);
+                        break;
+                    case 2:
+                            removeSpawn(&filaF, 2);
+                        break;
+                }
+                //removeSpawn(&spawn, spn);
                 printf("\n Collided!");
             }
             aux->y += aux->moveSpeed;
         }
         if(aux->y >= (app.w_Y - 5)){
-            instaRemove();
+                switch(spn){
+                    case 0:
+                            removeSpawn(&filaE, 0);
+                        break;
+                    case 1:
+                            removeSpawn(&filaM, 1);
+                        break;
+                    case 2:
+                            removeSpawn(&filaF, 2);
+                        break;
+                }            
+            //removeSpawn(**spawn, spn);
+            //instaRemove();
         }
         blitAtlas(aux->texture, 22, 19, 1, 0, 2, aux->x, aux->y, 0);
         //normal blit
         //blit(aux->texture, 1, aux->x, aux->y, 0);
         entity = aux->next;
-        readEntities(&entity);
+        readEntities(&entity, spn);
     }
 }
 
@@ -209,7 +233,7 @@ void initSpawn(){
 }
 
 void readSpawn(){
-    readEntities(&filaE);
-    readEntities(&filaM);
-    readEntities(&filaF);
+    readEntities(&filaE, 0);
+    readEntities(&filaM, 1);
+    readEntities(&filaF, 2);
 }
