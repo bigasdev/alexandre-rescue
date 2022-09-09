@@ -21,13 +21,19 @@ int j_cooldown = 0;
 //cd for the interaction
 int jump_cd = 16;
 
+//constraints
+int limitX, limitY;
+
 void createHero(void){
-    Hero.x = 600;
-    Hero.y = 300;
+    Hero.x = app.w_X/2;
+    Hero.y = app.w_Y-32;
     Hero.moveSpeed = 2;
     Hero.framesCount = 2;
     Hero.health = 10;
     Hero.texture = loadTexture("resources/sprites/atlas.png");
+
+    limitX = app.w_X;
+    limitY = app.w_Y;
     //Hero.frames[0] = loadTexture("resources/sprites/player.png");
     //Hero.frames[1] = loadTexture("resources/sprites/player1.png");
     //hero = &_hero;
@@ -86,16 +92,20 @@ void playerInputs(){
     }else{
         Hero.moveSpeed = 3;
     }
-    if(app.up){
+    /*if(app.up){
+        if(Hero.y <= 0)return;
         Hero.y -= Hero.moveSpeed;
     }
     if(app.down){
+        if(Hero.y >= app.w_Y-16)return;
         Hero.y += Hero.moveSpeed;
-    }
+    }*/
     if(app.right){
+        if(Hero.x >= app.w_X-16)return;
         Hero.x += Hero.moveSpeed;
     }
     if(app.left){
+        if(Hero.x <= 0)return;
         Hero.x -= Hero.moveSpeed;
     }
     if(app.interacted){
