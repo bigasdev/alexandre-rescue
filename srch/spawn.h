@@ -2,5 +2,5 @@
 
 extern void initSpawn();
 extern void add();
-extern void spawnRemove();
+extern void spawnRemove(int spn);
 extern void readSpawn();

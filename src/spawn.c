@@ -5,23 +5,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Entity *fila = NULL;
+Entity *filaE = NULL;
+Entity *filaM = NULL;
+Entity *filaF = NULL;
+
 Entity *r = NULL;
-Entity baseEntity;
-int increase = 30;
-int yIncrease = 30;
+Entity baseEntityE;
+Entity baseEntityM;
+Entity baseEntityF;
 
-int collisionBox[] = {20,30};
+Entity entities[3];
 
-void addEntity(Entity **spawn){
-    printf("\nAdding a new entity with a x: %i", increase);
+int limitE, limitM, limitF;
+
+int collisionBox[] = {40,30};
+
+void addEntity(Entity **spawn, int spn){
+    printf("\nAdding a new entity for x: %i the entity X is: %i", spn, entities[spn].x);
     Entity *aux, *entity = malloc(sizeof(Entity));
     if(entity){
-        entity->x = baseEntity.x - increase;
-        entity->y = baseEntity.y + yIncrease;
-        entity->moveSpeed = baseEntity.moveSpeed;
-        entity->health = baseEntity.health;
-        entity->texture = baseEntity.texture;
+        entity->x = entities[spn].x;
+        entity->y = entities[spn].y;
+        entity->moveSpeed = entities[spn].moveSpeed;
+        entity->health = entities[spn].health;
+        entity->texture = entities[spn].texture;
         entity->next = NULL;
         
         // Caso a fila esteja NULL a gente vai iniciar ela com a entity criada como objeto
@@ -51,29 +58,71 @@ Entity* removeEntity(Entity **spawn){
         remover = *spawn;
         //*spawn = remover->next;
     }else{
-        increase = 48;
+        //increase = 48;
         printf("Fila vazia!");
     }
     return remover;
 }
 
-void spawnRemove(){
-    r = removeEntity(&fila);
-    if(r){
-        r->moveSpeed = 6;
-        /*increase -= 18;
-        printf("\n Removed memory for the first entity, the x is now at: %i", increase);
-        free(r);*/
+void spawnRemove(int spn){
+    switch(spn){
+        case 0:
+                r = removeEntity(&filaE);
+                if(r){
+                    r->moveSpeed = 6;
+                    /*increase -= 18;
+                    printf("\n Removed memory for the first entity, the x is now at: %i", increase);
+                    free(r);*/
+                }
+            break;
+        case 1:
+                r = removeEntity(&filaM);
+                if(r){
+                    r->moveSpeed = 6;
+                    /*increase -= 18;
+                    printf("\n Removed memory for the first entity, the x is now at: %i", increase);
+                    free(r);*/
+                }
+            break;
+        case 2:
+                r = removeEntity(&filaF);
+                if(r){
+                    r->moveSpeed = 6;
+                    /*increase -= 18;
+                    printf("\n Removed memory for the first entity, the x is now at: %i", increase);
+                    free(r);*/
+                }
+            break;
     }
 }
-
-void instaRemove(Entity **spawn){
+void removeSpawn(Entity **spawn, int spn){
     Entity *remo = NULL;
     if(*spawn){
         remo = *spawn;
         *spawn = remo->next;
-        spawnRemove();
+        spawnRemove(spn);
     }
+}
+
+void instaRemove(){
+    Entity *remo = NULL;
+    int r = rand() % 3;
+    switch(r){
+        case 0:
+            removeSpawn(&filaE, r);
+            break;
+        case 1:
+            removeSpawn(&filaM, r);
+            break;
+        case 2:
+            removeSpawn(&filaF, r);
+            break;
+    }
+    /*if(*spawn){
+        remo = *spawn;
+        *spawn = remo->next;
+        spawnRemove();
+    }*/
 }
 
 void readEntities(Entity **spawn){
@@ -85,13 +134,13 @@ void readEntities(Entity **spawn){
         if(aux->moveSpeed != 0){
             if(aux->x + collisionBox[0] >= Hero.x && aux->x <= (Hero.x + 20) &&
                aux->y + collisionBox[1] >= Hero.y && aux->y <= (Hero.y + 20)){
-                instaRemove(&fila);
+                instaRemove();
                 printf("\n Collided!");
             }
             aux->y += aux->moveSpeed;
         }
         if(aux->y >= (app.w_Y - 5)){
-            instaRemove(&fila);
+            instaRemove();
         }
         blitAtlas(aux->texture, 22, 19, 1, 0, 2, aux->x, aux->y, 0);
         //normal blit
@@ -102,21 +151,34 @@ void readEntities(Entity **spawn){
 }
 
 void add(){
-    addEntity(&fila);
-    increase += 30;
+    addEntity(&filaE, 0);
+    addEntity(&filaM, 1);
+    addEntity(&filaF, 2);
+    /*increase += 30;
     if(increase >= (app.w_X)){
         increase = 30;
         yIncrease += 30;
-    }
+    }*/
 }
 
 void initSpawn(){
-    baseEntity.x = app.w_X;
-    baseEntity.y = 0;
-    baseEntity.moveSpeed = 0;
-    baseEntity.health = 10;
-    baseEntity.texture = loadTexture("resources/sprites/atlas.png");
-    for (size_t i = 0; i < 140; i++)
+    baseEntityF.x = app.w_X - 64;
+    baseEntityF.y = 0;
+    baseEntityF.moveSpeed = 0;
+    baseEntityF.health = 10;
+    baseEntityF.texture = loadTexture("resources/sprites/atlas.png");
+
+    baseEntityE = baseEntityF;
+    baseEntityE.x = 16;
+
+    baseEntityM = baseEntityF;
+    baseEntityM.x= app.w_X/2;
+
+    entities[0] = baseEntityE;
+    entities[1] = baseEntityM;
+    entities[2] = baseEntityF;
+
+    for (size_t i = 0; i < 5; i++)
     {
         /* code */  
         add();
@@ -125,5 +187,7 @@ void initSpawn(){
 }
 
 void readSpawn(){
-    readEntities(&fila);
+    readEntities(&filaE);
+    readEntities(&filaM);
+    readEntities(&filaF);
 }

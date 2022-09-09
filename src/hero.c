@@ -83,7 +83,7 @@ void jump(){
     jumped = 1;
     j_cooldown = 0;
     printf("\n Player trying to jump");
-    spawnRemove();
+    spawnRemove(rand() % 3);
 }
 
 void playerInputs(){
