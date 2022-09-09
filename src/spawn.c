@@ -41,23 +41,6 @@ void addEntity(Entity **spawn){
     }
 }
 
-void readEntities(Entity **spawn){
-    Entity *aux, *entity = NULL;
-    if(*spawn){
-        aux = *spawn;
-        //printf("\n Entity na posicao X: %d e posicao Y: %d", aux->x, aux->y);
-        //this is used to draw with an atlas:
-        if(aux->moveSpeed != 0){
-            aux->y += aux->moveSpeed;
-        }
-        blitAtlas(aux->texture, 8, 8, 0, 2, 2, aux->x, aux->y, 0);
-        //normal blit
-        //blit(aux->texture, 1, aux->x, aux->y, 0);
-        entity = aux->next;
-        readEntities(&entity);
-    }
-}
-
 Entity* removeEntity(Entity **spawn){
     Entity *remover = NULL;
     if(*spawn){
@@ -71,15 +54,6 @@ Entity* removeEntity(Entity **spawn){
     return remover;
 }
 
-void add(){
-    addEntity(&fila);
-    increase += 18;
-    if(increase >= (app.w_X)){
-        increase = 16;
-        yIncrease += 16;
-    }
-}
-
 void spawnRemove(){
     r = removeEntity(&fila);
     if(r){
@@ -87,6 +61,44 @@ void spawnRemove(){
         /*increase -= 18;
         printf("\n Removed memory for the first entity, the x is now at: %i", increase);
         free(r);*/
+    }
+}
+
+void instaRemove(Entity **spawn){
+    Entity *remo = NULL;
+    if(*spawn){
+        remo = *spawn;
+        *spawn = remo->next;
+        spawnRemove();
+    }
+}
+
+void readEntities(Entity **spawn){
+    Entity *aux, *entity = NULL;
+    if(*spawn){
+        aux = *spawn;
+        //printf("\n Entity na posicao X: %d e posicao Y: %d", aux->x, aux->y);
+        //this is used to draw with an atlas:
+        if(aux->moveSpeed != 0){
+            aux->y += aux->moveSpeed;
+        }
+        if(aux->y >= (app.w_Y - 32)){
+            instaRemove(&fila);
+        }
+        blitAtlas(aux->texture, 8, 8, 0, 2, 2, aux->x, aux->y, 0);
+        //normal blit
+        //blit(aux->texture, 1, aux->x, aux->y, 0);
+        entity = aux->next;
+        readEntities(&entity);
+    }
+}
+
+void add(){
+    addEntity(&fila);
+    increase += 18;
+    if(increase >= (app.w_X)){
+        increase = 16;
+        yIncrease += 16;
     }
 }
 
