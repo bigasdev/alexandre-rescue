@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "structs.h": "c",
+        "sdl.h": "c",
+        "sdl_image.h": "c",
+        "test.h": "c",
+        "player.h": "c",
+        "draw.h": "c",
+        "inttypes.h": "c",
+        "hero.h": "c",
+        "splash.h": "c",
+        "stdio.h": "c"
+    },
+    "[markdown]": 
+    { "editor.quickSuggestions": {
+            "comments": "on",
+            "strings": "on",
+            "other": "on"
+        } },
+    "C_Cpp.errorSquiggles": "Enabled"
+}
