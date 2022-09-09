@@ -8,13 +8,14 @@ Entity *fila = NULL;
 Entity *r = NULL;
 Entity baseEntity;
 int increase = 16;
+int yIncrease = 16;
 
 void addEntity(Entity **spawn){
     printf("\nAdding a new entity with a x: %i", increase);
     Entity *aux, *entity = malloc(sizeof(Entity));
     if(entity){
         entity->x = baseEntity.x - increase;
-        entity->y = baseEntity.y;
+        entity->y = baseEntity.y + yIncrease;
         entity->moveSpeed = baseEntity.moveSpeed;
         entity->health = baseEntity.health;
         entity->texture = baseEntity.texture;
@@ -46,6 +47,9 @@ void readEntities(Entity **spawn){
         aux = *spawn;
         //printf("\n Entity na posicao X: %d e posicao Y: %d", aux->x, aux->y);
         //this is used to draw with an atlas:
+        if(aux->moveSpeed != 0){
+            aux->y += aux->moveSpeed;
+        }
         blitAtlas(aux->texture, 8, 8, 0, 2, 2, aux->x, aux->y, 0);
         //normal blit
         //blit(aux->texture, 1, aux->x, aux->y, 0);
@@ -59,7 +63,7 @@ Entity* removeEntity(Entity **spawn){
     if(*spawn){
         //Se nao estiver null a gente vai remover o next
         remover = *spawn;
-        *spawn = remover->next;
+        //*spawn = remover->next;
     }else{
         increase = 48;
         printf("Fila vazia!");
@@ -70,24 +74,29 @@ Entity* removeEntity(Entity **spawn){
 void add(){
     addEntity(&fila);
     increase += 18;
+    if(increase >= (app.w_X)){
+        increase = 16;
+        yIncrease += 16;
+    }
 }
 
 void spawnRemove(){
     r = removeEntity(&fila);
     if(r){
-        increase -= 18;
+        r->moveSpeed = 6;
+        /*increase -= 18;
         printf("\n Removed memory for the first entity, the x is now at: %i", increase);
-        free(r);
+        free(r);*/
     }
 }
 
 void initSpawn(){
     baseEntity.x = app.w_X;
     baseEntity.y = 0;
-    baseEntity.moveSpeed = 2;
+    baseEntity.moveSpeed = 0;
     baseEntity.health = 10;
     baseEntity.texture = loadTexture("resources/sprites/atlas.png");
-    for (size_t i = 0; i < 10; i++)
+    for (size_t i = 0; i < 140; i++)
     {
         /* code */  
         add();

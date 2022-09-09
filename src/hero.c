@@ -27,7 +27,7 @@ int limitX, limitY;
 void createHero(void){
     Hero.x = app.w_X/2;
     Hero.y = app.w_Y-32;
-    Hero.moveSpeed = 2;
+    Hero.moveSpeed = 4;
     Hero.framesCount = 2;
     Hero.health = 10;
     Hero.texture = loadTexture("resources/sprites/atlas.png");
@@ -114,10 +114,10 @@ void playerInputs(){
     if(app.jump){
         jump();
     }
-    if(app.up && app.right || app.up && app.left || app.down && app.right || app.down && app.left){
+    /*if(app.up && app.right || app.up && app.left || app.down && app.right || app.down && app.left){
         Hero.slowed = true;
     }else{
         Hero.slowed = false;
-    }
+    }*/
     cd();
 }
