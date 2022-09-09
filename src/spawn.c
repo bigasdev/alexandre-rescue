@@ -8,10 +8,10 @@
 Entity *fila = NULL;
 Entity *r = NULL;
 Entity baseEntity;
-int increase = 16;
-int yIncrease = 16;
+int increase = 30;
+int yIncrease = 30;
 
-int collisionBox[] = {18,16};
+int collisionBox[] = {20,30};
 
 void addEntity(Entity **spawn){
     printf("\nAdding a new entity with a x: %i", increase);
@@ -83,8 +83,8 @@ void readEntities(Entity **spawn){
         //printf("\n Entity na posicao X: %d e posicao Y: %d", aux->x, aux->y);
         //this is used to draw with an atlas:
         if(aux->moveSpeed != 0){
-            if(aux->x + collisionBox[0] >= Hero.x && aux->x <= (Hero.x + 16) &&
-               aux->y + collisionBox[1] >= Hero.y && aux->y <= (Hero.y + 16)){
+            if(aux->x + collisionBox[0] >= Hero.x && aux->x <= (Hero.x + 20) &&
+               aux->y + collisionBox[1] >= Hero.y && aux->y <= (Hero.y + 20)){
                 instaRemove(&fila);
                 printf("\n Collided!");
             }
@@ -93,7 +93,7 @@ void readEntities(Entity **spawn){
         if(aux->y >= (app.w_Y - 5)){
             instaRemove(&fila);
         }
-        blitAtlas(aux->texture, 8, 8, 0, 2, 2, aux->x, aux->y, 0);
+        blitAtlas(aux->texture, 22, 19, 1, 0, 2, aux->x, aux->y, 0);
         //normal blit
         //blit(aux->texture, 1, aux->x, aux->y, 0);
         entity = aux->next;
@@ -103,10 +103,10 @@ void readEntities(Entity **spawn){
 
 void add(){
     addEntity(&fila);
-    increase += 18;
+    increase += 30;
     if(increase >= (app.w_X)){
-        increase = 16;
-        yIncrease += 16;
+        increase = 30;
+        yIncrease += 30;
     }
 }
 

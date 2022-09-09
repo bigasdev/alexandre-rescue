@@ -28,7 +28,7 @@ void createHero(void){
     Hero.x = app.w_X/2;
     Hero.y = app.w_Y-32;
     Hero.moveSpeed = 4;
-    Hero.framesCount = 2;
+    Hero.framesCount = 1;
     Hero.health = 10;
     Hero.texture = loadTexture("resources/sprites/atlas.png");
 
