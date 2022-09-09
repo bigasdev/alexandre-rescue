@@ -23,6 +23,10 @@ typedef struct {
     int moveSpeed;
     int health;
     int framesCount;
+    int increase;
+    int increaseAmt;
+    int increaseYAmt;
+    int increaseMax;
     int currentFrame;
     char name;
     bool slowed;

@@ -15,21 +15,35 @@ Entity baseEntityM;
 Entity baseEntityF;
 
 Entity entities[3];
-
-int limitE, limitM, limitF;
+int increase[3];
 
 int collisionBox[] = {40,30};
 
 void addEntity(Entity **spawn, int spn){
-    printf("\nAdding a new entity for x: %i the entity X is: %i", spn, entities[spn].x);
     Entity *aux, *entity = malloc(sizeof(Entity));
     if(entity){
-        entity->x = entities[spn].x;
+        if(increase[spn] != 0){
+            printf("\n The increase is: %i So the X will increase in: %i", increase[spn], entities[spn].increaseAmt);
+            entity->x = entities[spn].x + (entities[spn].increaseAmt*increase[spn]);
+            increase[spn] += 1;
+            if(increase[spn] >= entities[spn].increaseMax){
+                printf("\n Resetting the increase: %i", increase[spn]);
+                entities[spn].increaseYAmt -= 24;
+                increase[spn] = 0;
+            }
+        }else{
+            increase[spn] += 1;
+            entity->x = entities[spn].x;
+        }
+
+
         entity->y = entities[spn].y;
         entity->moveSpeed = entities[spn].moveSpeed;
         entity->health = entities[spn].health;
         entity->texture = entities[spn].texture;
         entity->next = NULL;
+
+        printf("\nAdding a new entity for x: %i the entity X is: %i and the Y is: %i", spn, entity->x, entity->y);
         
         // Caso a fila esteja NULL a gente vai iniciar ela com a entity criada como objeto
         if(*spawn == NULL){
@@ -69,7 +83,7 @@ void spawnRemove(int spn){
         case 0:
                 r = removeEntity(&filaE);
                 if(r){
-                    r->moveSpeed = 6;
+                    r->moveSpeed = 4;
                     /*increase -= 18;
                     printf("\n Removed memory for the first entity, the x is now at: %i", increase);
                     free(r);*/
@@ -87,7 +101,7 @@ void spawnRemove(int spn){
         case 2:
                 r = removeEntity(&filaF);
                 if(r){
-                    r->moveSpeed = 6;
+                    r->moveSpeed = 3;
                     /*increase -= 18;
                     printf("\n Removed memory for the first entity, the x is now at: %i", increase);
                     free(r);*/
@@ -165,6 +179,10 @@ void initSpawn(){
     baseEntityF.x = app.w_X - 64;
     baseEntityF.y = 0;
     baseEntityF.moveSpeed = 0;
+    baseEntityF.increase = 0;
+    baseEntityF.increaseAmt = 24;
+    baseEntityF.increaseYAmt = 24;
+    baseEntityF.increaseMax = 5;
     baseEntityF.health = 10;
     baseEntityF.texture = loadTexture("resources/sprites/atlas.png");
 
@@ -177,6 +195,10 @@ void initSpawn(){
     entities[0] = baseEntityE;
     entities[1] = baseEntityM;
     entities[2] = baseEntityF;
+
+    increase[0] = 0;
+    increase[1] = 0;
+    increase[2] = 0;
 
     for (size_t i = 0; i < 5; i++)
     {
