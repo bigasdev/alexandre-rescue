@@ -1,6 +1,7 @@
 #include "../srch/structs.h"
 #include "../srch/spawn.h"
 #include "../srch/draw.h"
+#include "../srch/hero.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,6 +10,8 @@ Entity *r = NULL;
 Entity baseEntity;
 int increase = 16;
 int yIncrease = 16;
+
+int collisionBox[] = {18,16};
 
 void addEntity(Entity **spawn){
     printf("\nAdding a new entity with a x: %i", increase);
@@ -80,9 +83,14 @@ void readEntities(Entity **spawn){
         //printf("\n Entity na posicao X: %d e posicao Y: %d", aux->x, aux->y);
         //this is used to draw with an atlas:
         if(aux->moveSpeed != 0){
+            if(aux->x + collisionBox[0] >= Hero.x && aux->x <= (Hero.x + 16) &&
+               aux->y + collisionBox[1] >= Hero.y && aux->y <= (Hero.y + 16)){
+                instaRemove(&fila);
+                printf("\n Collided!");
+            }
             aux->y += aux->moveSpeed;
         }
-        if(aux->y >= (app.w_Y - 32)){
+        if(aux->y >= (app.w_Y - 5)){
             instaRemove(&fila);
         }
         blitAtlas(aux->texture, 8, 8, 0, 2, 2, aux->x, aux->y, 0);
