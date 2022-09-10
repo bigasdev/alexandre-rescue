@@ -181,7 +181,7 @@ void readEntities(Entity **spawn, int spn){
             //removeSpawn(**spawn, spn);
             //instaRemove();
         }
-        blitAtlas(aux->texture, 22, 19, 1, 0, 2, aux->x, aux->y, 0);
+        blit(aux->texture, 2, aux->x, aux->y, 0);
         //normal blit
         //blit(aux->texture, 1, aux->x, aux->y, 0);
         entity = aux->next;
@@ -209,7 +209,7 @@ void initSpawn(){
     baseEntityF.increaseYAmt = 38;
     baseEntityF.increaseMax = 5;
     baseEntityF.health = 10;
-    baseEntityF.texture = loadTexture("resources/sprites/atlas.png");
+    baseEntityF.texture = loadTexture("resources/sprites/alexandre.png");
 
     baseEntityE = baseEntityF;
     baseEntityE.x = 32;
