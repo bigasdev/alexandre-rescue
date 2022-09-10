@@ -26,8 +26,8 @@ int limitX, limitY;
 
 void createHero(void){
     Hero.x = app.w_X/2;
-    Hero.y = app.w_Y-32;
-    Hero.moveSpeed = 15;
+    Hero.y = app.w_Y-48;
+    Hero.moveSpeed = 18;
     Hero.framesCount = 1;
     Hero.health = 10;
     Hero.texture = loadTexture("resources/sprites/turboC.png");

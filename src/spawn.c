@@ -189,7 +189,7 @@ void readEntities(Entity **spawn, int spn){
             //removeSpawn(**spawn, spn);
             //instaRemove();
         }
-        blit(aux->texture, 2, aux->x, aux->y, 0);
+        blit(aux->texture, 3, aux->x, aux->y, 0);
         //normal blit
         //blit(aux->texture, 1, aux->x, aux->y, 0);
         entity = aux->next;
@@ -209,12 +209,12 @@ void add(){
 }
 
 void initSpawn(){
-    baseEntityF.x = app.w_X - 224;
+    baseEntityF.x = app.w_X - 290;
     baseEntityF.y = 0;
     baseEntityF.moveSpeed = 0;
     baseEntityF.increase = 0;
-    baseEntityF.increaseAmt = 38;
-    baseEntityF.increaseYAmt = 38;
+    baseEntityF.increaseAmt = 52;
+    baseEntityF.increaseYAmt = 52;
     baseEntityF.increaseMax = 5;
     baseEntityF.health = 10;
     baseEntityF.texture = loadTexture("resources/sprites/alexandre.png");
@@ -237,7 +237,7 @@ void initSpawn(){
     increaseY[1] = 0;
     increaseY[2] = 0;
 
-    for (size_t i = 0; i < 25; i++)
+    for (size_t i = 0; i < 40; i++)
     {
         /* code */  
         add();
