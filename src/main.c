@@ -9,6 +9,7 @@
 #include "../srch/input.h"
 #include "../srch/structs.h"
 #include "../srch/hero.h"
+#include "../srch/sound.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -26,6 +27,7 @@ void start(){
 
 	initSDL();
 	initSpawn();
+	initSound();
 	atexit(cleanup);
 
 	createHero();
@@ -55,6 +57,7 @@ int main(int argc, char *argv[]){
 
 		SDL_Delay(32);
 	}
+	playSound(0, 0);
 #endif
 	
 	//main loop

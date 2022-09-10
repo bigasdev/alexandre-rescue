@@ -3,6 +3,7 @@
 #include "../srch/defs.h"
 #include "../srch/structs.h"
 #include "../srch/init.h"
+#include "../srch/include/SDL2/SDL_mixer.h"
 #include <stdio.h>
 
 App app;
@@ -32,6 +33,14 @@ void initSDL(void){
 		printf("Failed to open %d x %d window: %s\n", SCREEN_WIDTH, SCREEN_HEIGHT, SDL_GetError());
 		exit(1);
 	}
+
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
+	{
+		printf("Couldn't initialize SDL Mixer\n");
+		exit(1);
+	}
+
+	Mix_AllocateChannels(MAX_SND_CHANNELS);
 
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 
