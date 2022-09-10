@@ -87,6 +87,7 @@ void spawnRemove(int spn){
         case 0:
                 r = removeEntity(&filaE);
                 if(r){
+                    printf("\n Entity in the position: X%i Y%i will be dropped now!", r->x, r->y);
                     r->moveSpeed = 1;
                     /*increase -= 18;
                     printf("\n Removed memory for the first entity, the x is now at: %i", increase);
@@ -96,6 +97,7 @@ void spawnRemove(int spn){
         case 1:
                 r = removeEntity(&filaM);
                 if(r){
+                    printf("\n Entity in the position: X%i Y%i will be dropped now!", r->x, r->y);
                     r->moveSpeed = 4;
                     /*increase -= 18;
                     printf("\n Removed memory for the first entity, the x is now at: %i", increase);
@@ -105,6 +107,7 @@ void spawnRemove(int spn){
         case 2:
                 r = removeEntity(&filaF);
                 if(r){
+                    printf("\n Entity in the position: X%i Y%i will be dropped now!", r->x, r->y);
                     r->moveSpeed = 2;
                     /*increase -= 18;
                     printf("\n Removed memory for the first entity, the x is now at: %i", increase);
