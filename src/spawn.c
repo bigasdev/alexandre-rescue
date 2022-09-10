@@ -1,7 +1,9 @@
 #include "../srch/structs.h"
 #include "../srch/spawn.h"
+#include "../srch/defs.h"
 #include "../srch/draw.h"
 #include "../srch/hero.h"
+#include "../srch/sound.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -80,6 +82,7 @@ Entity* removeEntity(Entity **spawn){
 }
 
 void spawnRemove(int spn){
+    playSound(SND_FILA_REMOVE, 1); 
     switch(spn){
         case 0:
                 r = removeEntity(&filaE);
@@ -161,6 +164,7 @@ void readEntities(Entity **spawn, int spn){
                             removeSpawn(&filaF, 2);
                         break;
                 }
+                playSound(SND_PLAYER_COLLECT, 0);
                 //removeSpawn(&spawn, spn);
                 printf("\n Collided!");
             }
@@ -177,7 +181,8 @@ void readEntities(Entity **spawn, int spn){
                     case 2:
                             removeSpawn(&filaF, 2);
                         break;
-                }            
+                }     
+                playSound(SND_PLAYER_FAIL, 0);       
             //removeSpawn(**spawn, spn);
             //instaRemove();
         }

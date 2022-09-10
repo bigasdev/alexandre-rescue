@@ -25,7 +25,8 @@ enum
 };
 
 enum{
-    SND_PLAYER_COLLECT = 0,
-    SND_FILA_REMOVE = 1,
-    SND_PLAYER_FAIL = 2
+    SND_SPLASH = 0,
+    SND_PLAYER_COLLECT = 1,
+    SND_FILA_REMOVE = 2,
+    SND_PLAYER_FAIL = 3
 };

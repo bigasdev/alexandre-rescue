@@ -9,7 +9,8 @@
         "inttypes.h": "c",
         "hero.h": "c",
         "splash.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "sound.h": "c"
     },
     "[markdown]": 
     { "editor.quickSuggestions": {

@@ -5,12 +5,13 @@
 #include <stdio.h>
 #include <string.h>
 
-Mix_Chunk* sounds[3];
+Mix_Chunk* sounds[4];
 
 void loadSounds(void){
-    sounds[SND_PLAYER_COLLECT] = Mix_LoadWAV("resources/sounds/pickupCoin.ogg");
-    sounds[SND_FILA_REMOVE] = Mix_LoadWAV("resources/sounds/pickupCoin.ogg");
-    sounds[SND_PLAYER_FAIL] = Mix_LoadWAV("resources/sounds/pickupCoin.ogg");
+    sounds[SND_SPLASH] = Mix_LoadWAV("resources/sounds/pickupCoin.ogg");
+    sounds[SND_PLAYER_COLLECT] = Mix_LoadWAV("resources/sounds/collect.ogg");
+    sounds[SND_FILA_REMOVE] = Mix_LoadWAV("resources/sounds/remove.ogg");
+    sounds[SND_PLAYER_FAIL] = Mix_LoadWAV("resources/sounds/fail.ogg");
 }
 
 void initSound(){
