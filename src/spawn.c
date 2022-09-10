@@ -16,6 +16,7 @@ Entity baseEntityF;
 
 Entity entities[3];
 int increase[3];
+int increaseY[3];
 
 int collisionBox[] = {40,30};
 
@@ -28,7 +29,7 @@ void addEntity(Entity **spawn, int spn){
             increase[spn] += 1;
             if(increase[spn] >= entities[spn].increaseMax){
                 printf("\n Resetting the increase: %i", increase[spn]);
-                entities[spn].increaseYAmt -= 24;
+                increaseY[spn]++;
                 increase[spn] = 0;
             }
         }else{
@@ -37,7 +38,7 @@ void addEntity(Entity **spawn, int spn){
         }
 
 
-        entity->y = entities[spn].y;
+        entity->y = entities[spn].y + (entities[spn].increaseYAmt*increaseY[spn]);
         entity->moveSpeed = entities[spn].moveSpeed;
         entity->health = entities[spn].health;
         entity->texture = entities[spn].texture;
@@ -83,7 +84,7 @@ void spawnRemove(int spn){
         case 0:
                 r = removeEntity(&filaE);
                 if(r){
-                    r->moveSpeed = 4;
+                    r->moveSpeed = 1;
                     /*increase -= 18;
                     printf("\n Removed memory for the first entity, the x is now at: %i", increase);
                     free(r);*/
@@ -92,7 +93,7 @@ void spawnRemove(int spn){
         case 1:
                 r = removeEntity(&filaM);
                 if(r){
-                    r->moveSpeed = 6;
+                    r->moveSpeed = 4;
                     /*increase -= 18;
                     printf("\n Removed memory for the first entity, the x is now at: %i", increase);
                     free(r);*/
@@ -101,7 +102,7 @@ void spawnRemove(int spn){
         case 2:
                 r = removeEntity(&filaF);
                 if(r){
-                    r->moveSpeed = 3;
+                    r->moveSpeed = 2;
                     /*increase -= 18;
                     printf("\n Removed memory for the first entity, the x is now at: %i", increase);
                     free(r);*/
@@ -200,21 +201,21 @@ void add(){
 }
 
 void initSpawn(){
-    baseEntityF.x = app.w_X - 64;
+    baseEntityF.x = app.w_X - 224;
     baseEntityF.y = 0;
     baseEntityF.moveSpeed = 0;
     baseEntityF.increase = 0;
-    baseEntityF.increaseAmt = 24;
-    baseEntityF.increaseYAmt = 24;
+    baseEntityF.increaseAmt = 38;
+    baseEntityF.increaseYAmt = 38;
     baseEntityF.increaseMax = 5;
     baseEntityF.health = 10;
     baseEntityF.texture = loadTexture("resources/sprites/atlas.png");
 
     baseEntityE = baseEntityF;
-    baseEntityE.x = 16;
+    baseEntityE.x = 32;
 
     baseEntityM = baseEntityF;
-    baseEntityM.x= app.w_X/2;
+    baseEntityM.x= (app.w_X/2) - 100;
 
     entities[0] = baseEntityE;
     entities[1] = baseEntityM;
@@ -224,7 +225,11 @@ void initSpawn(){
     increase[1] = 0;
     increase[2] = 0;
 
-    for (size_t i = 0; i < 5; i++)
+    increaseY[0] = 0;
+    increaseY[1] = 0;
+    increaseY[2] = 0;
+
+    for (size_t i = 0; i < 25; i++)
     {
         /* code */  
         add();

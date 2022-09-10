@@ -27,7 +27,7 @@ int limitX, limitY;
 void createHero(void){
     Hero.x = app.w_X/2;
     Hero.y = app.w_Y-32;
-    Hero.moveSpeed = 25;
+    Hero.moveSpeed = 15;
     Hero.framesCount = 1;
     Hero.health = 10;
     Hero.texture = loadTexture("resources/sprites/atlas.png");
@@ -75,15 +75,17 @@ void interact(){
 #if DEMO
     debug();
 #endif
-    add();
+    //add();
 }
 
 void jump(){
     if(jumped)return;
     jumped = 1;
     j_cooldown = 0;
-    printf("\n Player trying to jump");
-    spawnRemove(rand() % 3);
+    printf("\n Starting game!");
+    for(int i = 0; i < 3; i++){
+        spawnRemove(i);
+    }
 }
 
 void playerInputs(){
