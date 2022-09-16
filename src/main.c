@@ -41,7 +41,7 @@ void start(){
 	storyEntity.texture = loadTexture("resources/intro.png");
 	storyEntity.y = app.w_Y  + 10;
 	storyEntity.x = (app.w_X/2)+100;
-	storyEntity.moveSpeed = 1;
+	storyEntity.moveSpeed = 2;
 
 #if SPLASH
 	initSplash();
