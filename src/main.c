@@ -13,6 +13,8 @@
 #include <stdio.h>
 #include <string.h>
 
+Entity storyEntity;
+
 void cleanup(){
 
 }
@@ -20,6 +22,7 @@ void cleanup(){
 void start(){
 	memset(&app, 0, sizeof(App));
     memset(&Hero, 0, sizeof(Entity));
+	memset(&storyEntity, 0, sizeof(Entity));
 #if SPLASH
 	memset(&splash, 0, sizeof(UI_Entity));
 	splashState = 0;
@@ -31,6 +34,10 @@ void start(){
 	atexit(cleanup);
 
 	createHero();
+	storyEntity.texture = loadTexture("resources/intro.png");
+	storyEntity.y = app.w_Y;
+	storyEntity.x = (app.w_X/2)+300;
+	storyEntity.moveSpeed = 1;
 
 #if SPLASH
 	initSplash();
@@ -51,14 +58,27 @@ int main(int argc, char *argv[]){
 
 		splashInput();
 
-		blit(splash.texture, 2, 0, 0, 1);
+		blit(splash.texture, 4, 0, 0, 1, 1);
 
 		presentScene();
 
 		SDL_Delay(32);
 	}
-	playSound(0, 0);
+	//playSound(0, 0);
 #endif
+	while(storyEntity.y >= app.w_Y/5){
+		prepareScene();
+
+		doInput();
+
+		blit(storyEntity.texture, 4, storyEntity.x, storyEntity.y, 0, 1);
+		storyEntity.y -= storyEntity.moveSpeed;
+
+		presentScene();
+
+
+		SDL_Delay(32);
+	}
 	
 	//main loop
 	while (1)
@@ -71,7 +91,7 @@ int main(int argc, char *argv[]){
 		playerInputs();
 
 		animatePlayer();
-        blit(Hero.texture, 3, Hero.x, Hero.y, 0);
+        blit(Hero.texture, 3, Hero.x, Hero.y, 0, 0);
 		readSpawn();
 
 		presentScene();

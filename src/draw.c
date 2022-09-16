@@ -7,7 +7,7 @@
 
 void prepareScene(void)
 {
-	SDL_SetRenderDrawColor(app.renderer, 96, 128, 255, 255);
+	SDL_SetRenderDrawColor(app.renderer, 0, 0, 0, 0);
 	SDL_RenderClear(app.renderer);
 }
 
@@ -17,7 +17,7 @@ void presentScene(void)
 }
 
 void resetScene(void){
-	SDL_SetRenderDrawColor(app.renderer, 96, 128, 255, 255);
+	SDL_SetRenderDrawColor(app.renderer, 0, 0, 0, 0);
 	SDL_RenderClear(app.renderer);
 	SDL_RenderPresent(app.renderer);
 }
@@ -32,7 +32,7 @@ SDL_Texture *loadTexture(char *file){
 	return texture;
 }
 
-void blit(SDL_Texture *texture, int size, int x, int y, int center)
+void blit(SDL_Texture *texture, int size, int x, int y, int center, int centerX)
 {
 	SDL_Rect dest;
 
@@ -52,6 +52,11 @@ void blit(SDL_Texture *texture, int size, int x, int y, int center)
 		dest.x = (w/2) - (dest.w/2);
 		dest.y = (y/2) - (dest.h/2);
 
+	}
+	if(centerX){
+		int w = app.w_X;
+
+		dest.x = (w/2) - (dest.w/2);
 	}
 
 	SDL_RenderCopy(app.renderer, texture, NULL, &dest);

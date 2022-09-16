@@ -189,7 +189,7 @@ void readEntities(Entity **spawn, int spn){
             //removeSpawn(**spawn, spn);
             //instaRemove();
         }
-        blit(aux->texture, 3, aux->x, aux->y, 0);
+        blit(aux->texture, 3, aux->x, aux->y, 0, 0);
         //normal blit
         //blit(aux->texture, 1, aux->x, aux->y, 0);
         entity = aux->next;
