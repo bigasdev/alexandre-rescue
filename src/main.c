@@ -14,6 +14,7 @@
 #include <string.h>
 
 Entity storyEntity;
+Entity logoEntity;
 
 void cleanup(){
 
@@ -23,6 +24,7 @@ void start(){
 	memset(&app, 0, sizeof(App));
     memset(&Hero, 0, sizeof(Entity));
 	memset(&storyEntity, 0, sizeof(Entity));
+	memset(&logoEntity, 0, sizeof(Entity));
 #if SPLASH
 	memset(&splash, 0, sizeof(UI_Entity));
 	splashState = 0;
@@ -34,9 +36,11 @@ void start(){
 	atexit(cleanup);
 
 	createHero();
+	logoEntity.texture = loadTexture("resources/logo.png");
+
 	storyEntity.texture = loadTexture("resources/intro.png");
-	storyEntity.y = app.w_Y;
-	storyEntity.x = (app.w_X/2)+300;
+	storyEntity.y = app.w_Y  + 10;
+	storyEntity.x = (app.w_X/2)+100;
 	storyEntity.moveSpeed = 1;
 
 #if SPLASH
@@ -50,6 +54,7 @@ int main(int argc, char *argv[]){
 
 	//splash screen loop
 #if SPLASH
+	playSound(0, 0);
 	while(!splashState)
 	{
 		prepareScene();
@@ -64,20 +69,26 @@ int main(int argc, char *argv[]){
 
 		SDL_Delay(32);
 	}
-	//playSound(0, 0);
+	loadMusic("resources/sounds/intro.ogg");
+	playMusic(0);
 #endif
-	while(storyEntity.y >= app.w_Y/5){
+	int i = 0;
+	while(storyEntity.y >= 0){
 		prepareScene();
 
 		doInput();
 
+		if(i <= 120){
+			blit(logoEntity.texture, 4, logoEntity.x, logoEntity.y, 1, 0);
+			i++;
+		}
+
 		blit(storyEntity.texture, 4, storyEntity.x, storyEntity.y, 0, 1);
 		storyEntity.y -= storyEntity.moveSpeed;
 
-		presentScene();
+		presentScene();	
 
-
-		SDL_Delay(32);
+		SDL_Delay(64);
 	}
 	
 	//main loop
